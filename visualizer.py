@@ -43,6 +43,8 @@ print("Estimated Standard Deviation (sigma):", sigma)
 
 axs[0].set_yticks(major_ticks)
 axs[0].set_yticks(minor_ticks, minor=True)
+axs[0].set_title('Rating CDF')
+axs[1].set_title('Rating PDF')
 axs[0].legend()
 axs[0].grid()
 
