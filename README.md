@@ -3,7 +3,7 @@
 ## Endpoints:
 - Global: ``https://api.steampowered.com/ICSGOServers_730/GetLeaderboardEntries/v1?format=json&lbname=official_leaderboard_premier_season1``
 - Regional: ``https://api.steampowered.com/ICSGOServers_730/GetLeaderboardEntries/v1?format=json&lbname=official_leaderboard_premier_season1_region`` (replace ``region`` with ``NorthAmerica`` / ``SouthAmerica`` / ``Europe`` / ``Asia`` / ``Australia`` / ``Africa`` / ``China`` )
-- Friends leaderboard doesn't use these endpoints above.
+- Friends leaderboard uses internal steam API calls, see (related protobufs)[https://github.com/SteamDatabase/SteamTracking/blob/bdadf0c49d1eb34bdd406d4413a2fb1e90bf2448/Protobufs/steammessages_clientserver_lbs.proto#L49-L69].
 ## Example result
 
 ```json
