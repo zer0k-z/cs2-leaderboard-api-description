@@ -4,7 +4,8 @@ import numpy as np
 import scipy
 import scipy.optimize as optimize
 import json
- 
+
+# Data from Steam API message with nethook.
 f = open('data.json')
  
 friends_data = json.load(f)
@@ -21,7 +22,10 @@ player_data = []
 if response.status_code == 200:
 	count = response.json()['result']['data']
 	entries = response.json()['result']['entries']
-	player_data = [(entry['score'] >> 15, 1-entry['rank']/count) for entry in entries]
+	# Since everyone here are top 1000 out of 400k it isn't actually that useful to estimate the curve with this data
+	# But more is better, I guess.
+	player_data = [(entry['score'] >> 15, 1-entry['rank']/count) for entry in entries] 
+	# The real useful data
 	player_data += friends_data
 else:
 	print("Failed to get data.")
@@ -57,6 +61,6 @@ axs[1].set_title('CS Rating PDF')
 axs[1].set_xticks(np.arange(0, 35000, 5000))
 axs[1].grid()
 
-plt.title(f"Estimated Mean (mu): {mu} \nEstimated Standard Deviation (sigma): {sigma}")
+plt.suptitle(f"Estimated Mean (mu): {mu} \nEstimated Standard Deviation (sigma): {sigma}")
 plt.tight_layout()
 plt.show()
