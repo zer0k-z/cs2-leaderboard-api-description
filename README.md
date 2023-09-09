@@ -41,4 +41,4 @@
   ![](enum.png)
   - For ``RankWindowStats``, it corresponds to the map spider graph indicating player's map "preferences" (maybe derived from wins). It's a 32 bit value, each 4 bits correspond to a map.
   - ``TimeAchieved`` is probably when the player gets into the leaderboard.
-- Rank% (removed from cs2) = `Rank / data`. It's an integer always capped between 1 and 99.
+- Rank% (hidden from cs2 global LB) = `Rank / data`. It's an integer always capped between 1 and 99.
