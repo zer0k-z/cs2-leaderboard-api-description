@@ -9,7 +9,6 @@ import json
 f = open('data.json')
  
 friends_data = json.load(f)
-
 total = friends_data["leaderboard_entry_count"]
 friends_entries = friends_data["entries"]
 friends_data = ([(entry['rating'], 1-entry['rank']/total) for entry in friends_entries])
@@ -39,13 +38,17 @@ axs[0].plot(values, cdf_values, label='Observed Distribution', color='blue')
 # Use curve_fit to estimate the parameters
 f = lambda x,mu,sigma: scipy.stats.norm(mu,sigma).sf(x)
 mu,sigma = optimize.curve_fit(f,values,cdf_values, p0=(9500, 2500))[0]
-x = np.linspace(0, 35000, 1000)
+x = np.linspace(0, 45000, 1000)
 sf_values = scipy.stats.norm(mu, sigma).sf(x)
 axs[0].plot(x, sf_values, label='Estimated Normal Distribution', color='red')
 
 
 pdf_values = scipy.stats.norm(mu, sigma).pdf(x)
-axs[1].plot(x, pdf_values, label='Estimated Normal Distribution', color='red')
+axs[1].plot(x, pdf_values,label='Estimated Normal Distribution', color='red')
+samples = np.random.normal(mu, sigma, 600000)
+samples = np.maximum(samples, 1000)
+samples = np.minimum(samples, 20000)
+axs[1].hist(samples, bins=20, density=True, alpha=0.5, color='b', edgecolor='black')
 
 
 print("Estimated Mean (mu):", mu)
@@ -58,7 +61,7 @@ axs[0].legend()
 axs[0].grid()
 
 axs[1].set_title('CS Rating PDF')
-axs[1].set_xticks(np.arange(0, 35000, 5000))
+axs[1].set_xticks(np.arange(0, 45000, 5000))
 axs[1].grid()
 
 plt.suptitle(f"Estimated Mean (mu): {mu} \nEstimated Standard Deviation (sigma): {sigma}")
