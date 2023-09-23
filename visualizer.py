@@ -38,7 +38,7 @@ axs[0].plot(values, cdf_values, label='Observed Distribution', color='blue')
 # Use curve_fit to estimate the parameters
 f = lambda x,mu,sigma: scipy.stats.norm(mu,sigma).sf(x)
 mu,sigma = optimize.curve_fit(f,values,cdf_values, p0=(9500, 2500))[0]
-x = np.linspace(0, 45000, 1000)
+x = np.linspace(1000, 45000, 1000)
 sf_values = scipy.stats.norm(mu, sigma).sf(x)
 axs[0].plot(x, sf_values, label='Estimated Normal Distribution', color='red')
 
