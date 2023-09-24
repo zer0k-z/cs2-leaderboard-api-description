@@ -153,7 +153,7 @@ class PlayerData:
                     print(f"Unknown field {entry.tag}!")
 
 def create_leaderboard_md(region: str, data: T.List[PlayerData]):
-    lines = [['#', 'CS Rating', 'Name', 'Wins', 'Ties', 'Losses', 'Win%', 'Ancient', 'Nuke', 'Overpass', 'Vertigo', 'Mirage', 'Inferno', 'Anubis', 'Region', 'Time Achieved']]
+    lines = [['#', 'CS Rating', 'Name', 'Wins', 'Ties', 'Losses', 'Win%', 'Ancient', 'Nuke', 'Overpass', 'Vertigo', 'Mirage', 'Inferno', 'Anubis', 'Region', 'Last Played']]
     for player in data:
         lines.append([player.rank, player.score, sanitize_name_md(player.name), player.wins, player.ties, player.losses, round(player.wins/(player.wins+player.ties+player.losses) * 100, 2),
             player.map_details['Ancient'], player.map_details['Nuke'],player.map_details['Overpass'],player.map_details['Vertigo'],player.map_details['Mirage'],player.map_details['Inferno'],player.map_details['Anubis'],
