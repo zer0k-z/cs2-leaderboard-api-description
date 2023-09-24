@@ -35,7 +35,7 @@
 
 - CS Rating = ``score >> 15``
 - Data related to ``detailData``:
-  - Data is almost a [ScoreLeaderboardData protobuf message](https://github.com/SteamDatabase/Protobufs/blob/a5ca80c0b692dbc379cdb0a25bb7aac05d71180d/csgo/cstrike15_gcmessages.proto#L302-L318). Need to add/remove some bytes for some reason though.
+  - Data is almost a [ScoreLeaderboardData protobuf message](https://github.com/SteamDatabase/Protobufs/blob/a5ca80c0b692dbc379cdb0a25bb7aac05d71180d/csgo/cstrike15_gcmessages.proto#L302-L318). The first bytes is the header, indicating the protobuf length.
   - In ``matchentries``, each tag corresponds to a certain field, see image below. Winrate is calculated from the win/draw/loss fields.
   
   ![](enum.png)
