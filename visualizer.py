@@ -38,10 +38,10 @@ def get_map_stats(value: int):
     result = {}
     # Convert to binary and pad with zeros for 7 maps (4 bits each)
     binary_str = bin(value)[2:].zfill(28)
-
+    
     # Split into 4-bit segments
     segments = [binary_str[i:i+4] for i in range(0, 28, 4)]
-
+    
     # Convert each 4-bit segment back to an integer
     map_stats = [int(segment, 2) for segment in segments]
     for i, map in enumerate(MAPS):
@@ -59,7 +59,7 @@ def generate_estimation(player_data: T.List[int]):
     # Use curve_fit to estimate the parameters
     f = lambda x,mu,sigma: scipy.stats.norm(mu,sigma).sf(x)
     mu,sigma = optimize.curve_fit(f,values,cdf_values, p0=(9500, 2500))[0]
-    x = np.linspace(1000, 45000, 1000)
+    x = np.linspace(1000, 35000, 1000)
     sf_values = scipy.stats.norm(mu, sigma).sf(x)
     axs[0].plot(x, sf_values, label='Estimated Normal Distribution', color='red')
 
@@ -77,7 +77,7 @@ def generate_estimation(player_data: T.List[int]):
     axs[0].grid()
 
     axs[1].set_title('CS Rating PDF')
-    axs[1].set_xticks(np.arange(0, 45000, 5000))
+    axs[1].set_xticks(np.arange(0, 35000, 5000))
     axs[1].grid()
 
     plt.suptitle(f"CS Rating Estimated Distribution (Global)\nEstimated Mean (mu): {int(mu)} \nEstimated Standard Deviation (sigma): {int(sigma)}")
