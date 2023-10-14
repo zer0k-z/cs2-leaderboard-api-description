@@ -50,15 +50,15 @@ def get_map_stats(value: int):
 
 def generate_estimation(player_data: T.List[int]):
     values = np.array([data[0] for data in player_data])
-    cdf_values = np.array([1-data[1] for data in player_data])
+    sf_values = np.array([1-data[1] for data in player_data])
 
     _, axs = plt.subplots(2, 1, sharex='all', figsize=(12,8))
-    axs[0].scatter(values, cdf_values)
-    axs[0].plot(values, cdf_values, label='Observed Distribution', color='blue')
+    axs[0].scatter(values, sf_values)
+    axs[0].plot(values, sf_values, label='Observed Distribution', color='blue')
 
     # Use curve_fit to estimate the parameters
     f = lambda x,mu,sigma: scipy.stats.norm(mu,sigma).sf(x)
-    mu,sigma = optimize.curve_fit(f,values,cdf_values, p0=(9500, 2500))[0]
+    mu,sigma = optimize.curve_fit(f,values,sf_values, p0=(9500, 2500))[0]
     x = np.linspace(1000, 35000, 1000)
     sf_values = scipy.stats.norm(mu, sigma).sf(x)
     axs[0].plot(x, sf_values, label='Estimated Normal Distribution', color='red')
@@ -72,7 +72,7 @@ def generate_estimation(player_data: T.List[int]):
 
     axs[0].set_yticks(np.arange(0, 1.1, 0.25))
     axs[0].set_yticks(np.arange(0, 1.1, 0.05), minor=True)
-    axs[0].set_title('CS Rating CDF')
+    axs[0].set_title('CS Rating SF')
     axs[0].legend()
     axs[0].grid()
 
